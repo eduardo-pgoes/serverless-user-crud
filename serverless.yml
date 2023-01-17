@@ -15,9 +15,9 @@ functions:
           path: /users
 
 plugins:
-  - serverless-offline
   - serverless-plugin-typescript
   - serverless-dynamodb-local
+  - serverless-offline
 
 resources:
   Resources:
@@ -26,11 +26,16 @@ resources:
       Properties:
         TableName: usersTable
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: username
             AttributeType: S
         KeySchema:
-          - AttributeName: email
+          - AttributeName: username
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
+custom:
+  dynamodb:
+    stages:
+      - dev
