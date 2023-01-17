@@ -1,0 +1,19 @@
+service: user-crud
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  createUser:
+    handler: src/handlers/users.handler.create
+    events:
+      - http:
+          method: post
+          path: /users
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
