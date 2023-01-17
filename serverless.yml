@@ -17,3 +17,4 @@ functions:
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
+  - serverless-dynamodb-local
