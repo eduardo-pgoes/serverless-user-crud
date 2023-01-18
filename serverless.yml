@@ -2,40 +2,19 @@ service: user-crud
 
 frameworkVersion: '3'
 
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs14.x
 
 functions:
   createUser:
-    handler: src/api/handlers/users.handler.create
+    handler: src/api/handlers/users.create
     events:
       - http:
           method: post
           path: /users
-
-plugins:
-  - serverless-plugin-typescript
-  - serverless-dynamodb-local
-  - serverless-offline
-
-resources:
-  Resources:
-    usersTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: usersTable
-        AttributeDefinitions:
-          - AttributeName: username
-            AttributeType: S
-        KeySchema:
-          - AttributeName: username
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-
-custom:
-  dynamodb:
-    stages:
-      - dev

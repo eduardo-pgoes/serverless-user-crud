@@ -6,10 +6,9 @@ const usersService = new UsersService();
 
 export class UsersController {
     async create(data: any) {
-        const userData = data.queryStringParameters; // when we get to use AWS instead of Postman, this will become data.body
+        const userData = data.queryStringParameters;
         const user = new User();
 
-        // data validation for fixed User type
         try {
             user.user = userData.user;
             user.password = userData.password; // to-do: add pwd validation (JWT?)
@@ -29,6 +28,6 @@ export class UsersController {
         }
 
         const result = await usersService.create(user);
-        return result; // to-do: develop usersService.create()
+        return result;
     }
 }
