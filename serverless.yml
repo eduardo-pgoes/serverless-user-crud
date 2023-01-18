@@ -25,3 +25,10 @@ functions:
         - http:
             method: get
             path: /users
+
+  readUsersByID:
+      handler: src/api/handlers/users.readByID
+      events:
+        - http:
+            method: get
+            path: /users/{id}

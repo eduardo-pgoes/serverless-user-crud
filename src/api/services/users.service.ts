@@ -33,6 +33,27 @@ export class UsersService {
             }
         }
 
+        console.log(res);
+
+        return Promise.resolve(res); // to-do: adapt the result to Amazon's API Gateway format
+    }
+
+    async readByID(id: number) {
+        let res;
+        try {
+            res = await db
+            .select()
+            .from('users')
+            .where('id', id);
+        } catch (err) {
+            throw {
+                message: "Error when selecting users.",
+                code: StatusCodes.BAD_REQUEST // to-do: select correct status code for this
+            }
+        }
+
+        console.log(res);
+
         return Promise.resolve(res); // to-do: adapt the result to Amazon's API Gateway format
     }
 }

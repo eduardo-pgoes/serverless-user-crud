@@ -15,8 +15,7 @@ export const create: Handler = async (
 };
 
 /*
-    Handles API calls for reading entries in the user database
-    to-do: read users by ID
+    Handles API calls for reading entries in the user table
 */
 export const read: Handler = async (
     event: any,
@@ -24,4 +23,15 @@ export const read: Handler = async (
     callback: any
 ) => {
     callback(null, await usersController.read(event))
+};
+
+/*
+    Handles API calls for reading entries in the user table by ID
+*/
+export const readByID: Handler = async (
+    event: any,
+    context: Context,
+    callback: any
+) => {
+    callback(null, await usersController.readByID(event))
 };

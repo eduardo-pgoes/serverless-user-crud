@@ -23,6 +23,15 @@ export class UsersController {
     }
 
     /*
+        Tries to find specific user in users table
+    */
+    async readByID(data: any) {
+        const id = data.pathParameters.id;
+        const result = await usersService.readByID(id);
+        return result;
+    }
+
+    /*
         Handles API call data to User model conversion (see: ../models/users.models.ts)
     */
     private dataToUser(data: any) {
