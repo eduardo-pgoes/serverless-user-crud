@@ -4,7 +4,12 @@ import * as dotenv from 'dotenv'
 dotenv.config();
 var AWS = require('aws-sdk');
 
-new AWS.DynamoDB.DocumentClient({
+let params = {
+    TableName: "usersTable",
+    key: null
+};
+
+const documentClient = new AWS.DynamoDB({
     region: 'localhost',
     endpoint: 'http://localhost:8000',
     accessKeyId: process.env.ACCESS_KEY_ID,
@@ -18,7 +23,6 @@ console.log(process.env.ACCESS_KEY_ID);
 */
 export class UsersService {
     async create(user: User): Promise<object> {
-        console.log(user);
         return Promise.reject("bro?");
     }
 }

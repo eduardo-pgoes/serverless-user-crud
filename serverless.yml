@@ -8,7 +8,7 @@ provider:
 
 functions:
   createUser:
-    handler: src/handlers/users.handler.create
+    handler: src/api/handlers/users.handler.create
     events:
       - http:
           method: post
