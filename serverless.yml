@@ -18,3 +18,10 @@ functions:
       - http:
           method: post
           path: /users
+
+  readUsers:
+      handler: src/api/handlers/users.read
+      events:
+        - http:
+            method: get
+            path: /users

@@ -5,7 +5,27 @@ import { UsersService } from "../services/users.service";
 const usersService = new UsersService();
 
 export class UsersController {
+    /*
+        Validates user information and sends it over for the database
+    */
     async create(data: any) {
+        let user = this.dataToUser(data);
+        const result = await usersService.create(user);
+        return result;
+    }
+
+    /*
+        Reads all information from the users table
+    */
+    async read(event: any) {
+        const result = await usersService.read();
+        return result;
+    }
+
+    /*
+        Handles API call data to User model conversion (see: ../models/users.models.ts)
+    */
+    private dataToUser(data: any) {
         const userData = data.queryStringParameters;
         const user = new User();
 
@@ -27,7 +47,6 @@ export class UsersController {
             }
         }
 
-        const result = await usersService.create(user);
-        return result;
+        return user;
     }
 }

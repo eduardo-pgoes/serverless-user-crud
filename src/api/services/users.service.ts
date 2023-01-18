@@ -12,33 +12,27 @@ const db = knex(config["development"]);
 
 export class UsersService {
     async create(user: User): Promise<object> {
-        const promisify = () => new Promise((resolve, reject) => db.transaction(resolve));
-        const trx: any = await promisify();
+        return db.transaction(function (trx) {
+            db.insert({user: user.user, password: user.password})
+            .into('users')
+            .then(trx.commit)
+            .catch(trx.rollback)
+        });
+    }
 
+    async read(): Promise<object> {
+        let res;
         try {
-            let instance: object = await trx
-            .insert({user: user.user, password: user.password})
-            .into(tableName)
-            .returning("*");
-
-            await trx.commit();
-
-            let result = {
-                message: "Sucessfully added a user.",
-                code: StatusCodes.OK,
-                instance: instance
-            }
-
-            console.log("Success.");
-
-            return Promise.resolve(result);
+            res = await db
+            .select()
+            .from('users');
         } catch (err) {
-            let result = {
-                message: "Error adding a user.",
-                code: StatusCodes.BAD_REQUEST, // to-do: set up correct status codes for the create transaction
+            throw {
+                message: "Error when selecting users.",
+                code: StatusCodes.BAD_REQUEST // to-do: select correct status code for this
             }
-
-            return Promise.reject(result);
         }
+
+        return Promise.resolve(res); // to-do: adapt the result to Amazon's API Gateway format
     }
 }
